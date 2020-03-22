@@ -1,0 +1,7 @@
+---
+- hosts: jenkins-ci
+  vars:
+    jenkins_hostname: localhost
+  roles:
+    - role: geerlingguy.docker
+      become: yes

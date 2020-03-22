@@ -1,0 +1,10 @@
+task:
+
+Provison ec2 instance via terraform
+as part of Provison call ansible and deploy nginx role
+once provision is comples you should be able to access nginx webservice
+
+Exploration points:
+How are you going to install nginx?
+where do you source it from?
+once you find the source where can it be stored and used for execution?

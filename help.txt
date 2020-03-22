@@ -1,0 +1,3 @@
+This excercise will explore how we can intergrate Terraform-Ansible, You will be provisioning a VPC,subnets, sg's and launch instance with in the public subnet.
+
+As part of instance provisioning we will call Ansible and execute the playbooks as needed.

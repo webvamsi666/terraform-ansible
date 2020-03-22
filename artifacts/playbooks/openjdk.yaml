@@ -1,0 +1,40 @@
+---
+- name: ensure add-apt-repositories is present
+  # sudo apt-get install software-properties-common
+  become: yes
+  package: name=software-properties-common state=present
+
+- name: add ubuntu openjdk ppa
+  # sudo add-apt-repositories ppa:openjdk-r/ppa
+  become: yes
+  apt_repository: repo='ppa:openjdk-r/ppa'
+  when: ansible_distribution == "Ubuntu"
+
+- name: add debian backports
+  # edit sources.list, add repo line
+  become: yes
+  apt_repository: repo='deb http://http.debian.net/debian jessie-backports main' state=present # filename='openjdk-8-jdk'
+  when: ansible_distribution == "Debian"
+
+- name: update apt caches
+  # sudo apt-get update
+  become: yes
+  package: update_cache=yes
+
+- name: install openjdk 1.8
+  # sudo apt-get install openjdk-8-jdk
+  become: yes
+  package: name=openjdk-8-jdk state=latest
+
+- name: select correct java version
+  # sudo update-alternatives --set java /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
+  become: yes
+  alternatives: name=java path=/usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
+
+- name: select correct java compiler version
+  # sudo update-alternatives --set javac /usr/lib/jvm/java-8-openjdk-amd64/bin/javac
+  become: yes
+  alternatives: name=javac path=/usr/lib/jvm/java-8-openjdk-amd64/bin/javac
+
+- name: set java version for tomcat
+  set_fact: java_home=/usr/lib/jvm/java-8-openjdk-amd64
